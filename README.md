@@ -6,15 +6,15 @@
 
 ## Problem (Why):
 
-## IDC shows that "knowledge workers spend about 2.5 hours per day,
+IDC shows that "knowledge workers spend about 2.5 hours per day,
 
-## or roughly 30% of the workday, searching for information to do their job."
+or roughly 30% of the workday, searching for information to do their job."
 
 ## Solution (What and How):
 
-## We will try to significantly reduce this time by providing
+We will try to significantly reduce this time by providing
 
-## open professional knowledge sharing platform.
+open professional knowledge sharing platform.
 
 ## Our service website:
 
