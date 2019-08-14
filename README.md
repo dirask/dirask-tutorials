@@ -1,4 +1,4 @@
-# Dirask - why, what and how.
+# [Dirask](https://dirask.com/) - why, what and how.
 
 -> Why we do it?
 
