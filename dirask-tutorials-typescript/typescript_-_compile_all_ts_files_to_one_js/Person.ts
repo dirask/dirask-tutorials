@@ -7,7 +7,7 @@ export class Person
 	}
 	
 	public toString() : string
-	{
-		return `{ Name: #{this->name}, Age: #{this->age} }`;
+	{	
+		return `{ Name: ${this.name}, Age: ${this.age} }`;
 	}
 }

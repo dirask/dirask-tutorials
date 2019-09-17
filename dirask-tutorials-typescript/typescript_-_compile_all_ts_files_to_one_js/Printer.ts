@@ -4,7 +4,7 @@ export class Printer
 {
 	public static printPerson(person : Person) : void
 	{
-		console.log(person);
+		console.log(person.toString());
 	}
 	
 	public static printPersons(persons : Array<Person>) : void
