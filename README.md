@@ -94,3 +94,17 @@ dirask@gmail.com
 + Other industries: Robotics, Electronics, Finance, Health, Law
 
 ----------------------------------------
+
+
+```typescript
+let array = [
+    {
+        id : 1,
+        group : 'Juices',
+        items : [
+            { name : 'Apple',   price : 1.4 },
+            { name : 'Orange',  price : 1.7 }
+        ]
+    }
+];
+```
