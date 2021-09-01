@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        
+        span {
+            width: 80px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+
+        const loginUser = async form => {
+            try {
+                const response = await fetch('/user/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: form.username.value,
+                        password: form.password.value
+                    })
+                });
+                const data = await response.json();
+                if (data.result === 'SUCCESS') {
+                    alert('User login operation success.');
+                    location.reload();
+                } else {
+                    alert('User login operation error (message: ' + data.message + ').');
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Request error!');
+            }
+        };
+
+    </script>
+    <form method="post" onsubmit="loginUser(this); return false;">
+        <span>Username:</span><input type="test" name="username" value="admin" /><br />
+        <span>Password:</span><input type="test" name="password" value="admin" /><br />
+        <button>Login</button>
+    </form>
+</body>
+</html>

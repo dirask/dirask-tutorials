@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<body>
+    <script>
+
+        const logoutUser = async () => {
+            try {
+                const response = await fetch('/user/logout');
+                const data = await response.json();
+                if (data.result === 'SUCCESS') {
+                    alert('User logout operation success.');
+                    location.reload();
+                } else {
+                    alert('User logout operation error (message: ' + data.message + ').');
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Request error!');
+            }
+        };
+
+    </script>
+    <div>User already logged in.</div>
+    <button onclick="logoutUser()">Logout</button>
+</body>
+</html>
