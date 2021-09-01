@@ -11,17 +11,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `login_history` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `ip_address` varchar(45) NOT NULL,
-  `login_time` datetime(6) NOT NULL,
-  `logout_time` datetime(6) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK__users` (`user_id`),
-  CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- example data
 
 INSERT INTO `users`
