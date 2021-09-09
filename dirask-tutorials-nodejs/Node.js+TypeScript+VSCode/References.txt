@@ -1,0 +1,7 @@
+https://dirask.com/posts/VS-Code-debug-js-file-with-Node-js-jQqboj
+https://dirask.com/posts/VS-Code-debug-Express-js-under-Node-js-server-1y635D
+https://dirask.com/posts/VS-Code-debug-with-npm-run-jELw0p
+
+Hint: to have defined types in TypeScript install @type packages winth npm.
+https://www.npmjs.com/package/@types/node
+
