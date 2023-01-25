@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+
+    th {
+        padding: 6px;
+    }
+
+    td {
+        padding: 6px;
+        border: 1px solid silver;
+    }
+
+  </style>
+</head>
+<body>
+  <button onclick="checkUser()">Check user</button>
+  <br /><br />
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>E-mail</th>
+      <th colspan="2"></th>
+    </tr>
+    <tr>
+      <td>admin</td>
+      <td>admin</td>
+      <td>admin@email.com</td>
+      <td><button onclick="loginUser('admin', 'admin')">Login</button></td>
+      <td><button onclick="registerUser('admin', 'admin', 'admin@email.com')">Register</button></td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>user</td>
+      <td>user@email.com</td>
+      <td><button onclick="loginUser('user', 'user')">Login</button></td>
+      <td><button onclick="registerUser('user', 'user', 'user@email.com')">Register</button></td>
+    </tr>
+  </table>
+  <br />
+  <button onclick="logoutUser()">Logout user</button>
+  <script>
+
+      const sendData = async (requestUrl, requestData) => {
+          const config = {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              }
+          };
+          if (requestData) {
+              config.body = JSON.stringify(requestData); // request body
+          }
+          const response = await fetch(requestUrl, config);
+          return await response.json();
+      };
+
+      const checkUser = async () => {
+          const responseData = await sendData('/api/user/check');
+          alert(JSON.stringify(responseData, null, 4));
+      };
+
+      const loginUser = async (username, password) => {
+          const requestData = {username, password};
+          const responseData = await sendData('/api/user/login', requestData);
+          alert(JSON.stringify(responseData, null, 4));
+      };
+
+      const logoutUser = async () => {
+          const responseData = await sendData('/api/user/logout');
+          alert(JSON.stringify(responseData, null, 4));
+      };
+
+      const registerUser = async (username, password, email) => {
+          const requestData = {username, password, email};
+          const responseData = await sendData('/api/user/register', requestData);
+          alert(JSON.stringify(responseData, null, 4));
+      };
+
+  </script>
+</body>
+</html>
