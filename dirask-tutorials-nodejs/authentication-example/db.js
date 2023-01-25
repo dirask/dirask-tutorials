@@ -2,11 +2,11 @@ const mysql = require('mysql');
 
 const db = mysql.createPool({
     debug: false,
-    host: 'localhost',  // '127.0.0.1'
-    user: 'root',
-    password: 'root',
+    host: 'localhost',    // '127.0.0.1'
+    user: 'root',         // use your username !!!
+    password: 'root',     // use your password !!!
     database: 'demo_db',
-    connectionLimit: 100
+    connectionLimit: 10
 });
 
 const fetchUser = (id, callback) => {
