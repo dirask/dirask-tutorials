@@ -39,7 +39,7 @@ app.post('/api/user/check', (request, response) => {
                 user: {
                     id: data.id,
                     username: data.username,
-                    password: data.password,
+                 /* password: data.password, */
                     email: data.email
                 }
             });
