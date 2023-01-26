@@ -8,7 +8,7 @@ function App() {
         fetch('/api/users')
             .then(response => response.json())
             .then(users => setUsers(users))
-            .catch(error => alert('`/api/users` data fetching error!\n Check if you use bakend server (URL: `http://localhost:8080`).'));
+            .catch(error => alert('`/api/users` data fetching error!\n Check if you open application via bakend server (URL: `http://localhost:8080`).'));
     }, []);
     return (
         <div className="App">
