@@ -8,7 +8,7 @@ Project contains logic that lets to run application in production and developmen
 
 Before, we will start using applications we should install dependencies. 
 
-In the `backend/` and `frontend` directories, run:
+In the `backend/` and `frontend/` directories, run:
 
 ```
 npm ci install
@@ -18,7 +18,7 @@ npm ci install
 
 Provided backend logic lets to display frontend application and reload its source code on changes.
 
-In the `frontend` directory, run:
+In the `frontend/` directory, run:
 
 ```
 npm run start
