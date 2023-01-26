@@ -42,7 +42,7 @@ http://localhost:8080
 
 Provided backend logic lets to display frontend application as attached resources without additional process.
 
-In the `frontend` directory, run:
+In the `frontend/` directory, run:
 
 ```
 npm run build
