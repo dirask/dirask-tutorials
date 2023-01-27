@@ -4,7 +4,7 @@ This project was created to show how run Express.js backend and React frontend a
 
 Project contains logic that lets to run application in production and development mode.
 
-Backend application contains some minimal logic that joins frontend and backend applications. Frontend application is typical React application and there are any modifincations are not needed to make them working togather. That means we can change frontend to any other applications and it shoukd be working.
+Backend application contains some minimal logic that joins frontend and backend applications. Frontend application is typical React application and there are any modifincations are not needed to make them working togather. That means we can change frontend applications to any other and it shoukd be working.
 
 ## Installation
 
