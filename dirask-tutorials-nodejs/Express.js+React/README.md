@@ -4,6 +4,8 @@ This project was created to show how run Express.js backend and React frontend a
 
 Project contains logic that lets to run application in production and development mode.
 
+Backend application contains some minimal logic that joins frontend and backend applications. Frontend application is typical React application and there are any modifincations are not needed to make them working togather. That means we can change frontend to any other applications and it shoukd be working.
+
 ## Installation
 
 Before, we will start using applications we should install dependencies. 
@@ -16,7 +18,7 @@ npm ci install
 
 ## Development
 
-Provided backend logic lets to display frontend application and reload its source code on changes.
+Provided backend logic lets to display frontend application and reload its source code on changes. It means frontend application uses all developer features.
 
 In the `frontend/` directory, run:
 
