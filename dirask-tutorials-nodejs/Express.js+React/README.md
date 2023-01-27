@@ -18,7 +18,7 @@ npm ci install
 
 ## Development
 
-Provided backend logic lets to display frontend application and reload its source code on changes. It means frontend application uses all developer features.
+Provided backend logic lets to display frontend application and reload its source code on changes (automatic reloading). It means frontend application uses all developer features and is available directly from backend API.
 
 In the `frontend/` directory, run:
 
