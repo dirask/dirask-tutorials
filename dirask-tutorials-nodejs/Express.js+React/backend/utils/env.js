@@ -10,9 +10,9 @@ const NEWLINE_EXPRESSION = /\r?\n/g;
 
 // Syntax:
 //
-//   %NODE_CONSTANT_NAME%
-//   $LOCAL_VARIABLE_NAME$
-//   *GLOBAL_VARIABLE_NAME*
+//   %NODE_CONSTANT_NAME%    - constant defined in application source code
+//   $LOCAL_VARIABLE_NAME$   - variable defined in `.env` file
+//   *GLOBAL_VARIABLE_NAME*  - variable defined in `process.env` object
 //
 const REFERENCE_EXPRESSION = /%%|%([^%*$]+)%|%|\*\*|\*([^%*$]+)\*|\*|\$\$|\$([^%*$]+)\$|\$/g;
 
@@ -36,58 +36,52 @@ const iterateVariables = exports.iterateVariables = (text, callback) => {
     }
 };
 
-const readVariables = exports.readVariables = (path = ENV_PATH, constants = null) => {
+const readVariables = exports.readVariables = (path = ENV_PATH, constants = {}) => {
     const text = fs.readFileSync(path, 'utf-8');
     const variables = [];
-    if (constants) {
-        const environment = process.env;
-        iterateVariables(text, (name, value, index) => {
-            const action = (match, group1, group2, group3) => {
-                switch (match) {
-                    case '%': throw new Error(`Incorrect '%' character usage in 'name=${value}' line (line number: ${index + 1}).`);
-                    case '*': throw new Error(`Incorrect '*' character usage in 'name=${value}' line (line number: ${index + 1}).`);
-                    case '$': throw new Error(`Incorrect '$' character usage in 'name=${value}' line (line number: ${index + 1}).`);
-                    case '%%': return '%';
-                    case '**': return '*';
-                    case '$$': return '$';
-                    default:
-                        switch (match[0]) {
-                            case '%':
-                                {
-                                    const constant = constants[group1];
-                                    if (constant) {
-                                        return constant();
-                                    }
-                                    throw new Error(`Unknown '%${group1}%' environment constant.`);
+    const environment = process.env;
+    iterateVariables(text, (name, value, index) => {
+        const action = (match, group1, group2, group3) => {
+            switch (match) {
+                case '%': throw new Error(`Incorrect '%' character usage in 'name=${value}' line (line number: ${index + 1}).`);
+                case '*': throw new Error(`Incorrect '*' character usage in 'name=${value}' line (line number: ${index + 1}).`);
+                case '$': throw new Error(`Incorrect '$' character usage in 'name=${value}' line (line number: ${index + 1}).`);
+                case '%%': return '%';
+                case '**': return '*';
+                case '$$': return '$';
+                default:
+                    switch (match[0]) {
+                        case '%':
+                            {
+                                const constant = constants[group1];
+                                if (constant) {
+                                    return constant();
                                 }
-                            case '*':
-                                {
-                                    const variable = environment[group2];
-                                    if (variable == null) {  // null or undefined
-                                        throw new Error(`Unknown '%${group2}%' environment variable.`);
-                                    }
-                                    return variable;
+                                throw new Error(`Unknown '%${group1}%' environment constant.`);
+                            }
+                        case '*':
+                            {
+                                const variable = environment[group2];
+                                if (variable == null) {  // null or undefined
+                                    throw new Error(`Unknown '%${group2}%' environment variable.`);
                                 }
-                            case '$':
-                                {
-                                    const variable = variables[group3];
-                                    if (variable == null) {  // null or undefined
-                                        throw new Error(`Unknown '$${group3}$' environment variable.`);
-                                    }
-                                    return variable;
+                                return variable;
+                            }
+                        case '$':
+                            {
+                                const variable = variables[group3];
+                                if (variable == null) {  // null or undefined
+                                    throw new Error(`Unknown '$${group3}$' environment variable.`);
                                 }
-                            default:
-                                throw new Error(`Unknown constant/variable type.`);
-                        }
-                }
-            };
-            variables[name] = value.replace(REFERENCE_EXPRESSION, action);
-        });
-    } else {
-        iterateVariables(text, (name, value) => {
-            variables[name] = value;
-        });
-    }
+                                return variable;
+                            }
+                        default:
+                            throw new Error(`Unknown constant/variable type.`);
+                    }
+            }
+        };
+        variables[name] = value.replace(REFERENCE_EXPRESSION, action);
+    });
     return variables;
 };
 
