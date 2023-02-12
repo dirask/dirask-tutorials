@@ -14,7 +14,7 @@ const createPath = (aPath, bPath, search) => {
     return result;
 };
 
-const createProxy = (expressApp, proxyPath, destinationUrl, proxyAgent = null) => {
+const createProxy = exports.createProxy = (expressApp, proxyPath, destinationUrl, proxyAgent = null) => {
     const parsedUrl = new URL(destinationUrl);
     if (parsedUrl.search) {
         throw new Error('Incorrect destination URL (query component is not premitted).');
@@ -55,8 +55,4 @@ const createProxy = (expressApp, proxyPath, destinationUrl, proxyAgent = null) =
         });
         srcRequest.pipe(dstRequest);
     });
-};
-
-module.exports = {
-    createProxy
 };

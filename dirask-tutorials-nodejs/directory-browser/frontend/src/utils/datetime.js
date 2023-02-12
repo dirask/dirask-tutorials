@@ -1,3 +1,8 @@
+// Source:
+//
+//     https://dirask.com/snippets/JavaScript-render-datetime-as-YYYY-MM-DD-hh-mm-ss-date-time-format-pJaeqD
+
+
 const renderNumber = (number, length) => {
     let result = String(number);
     for (let i = result.length; i < length; ++i) {

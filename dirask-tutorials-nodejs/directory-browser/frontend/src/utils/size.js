@@ -1,3 +1,8 @@
+// Source:
+//
+//     https://dirask.com/snippets/JavaScript-format-size-in-bytes-to-human-readable-KB-MB-GB-TB-PB-pJa8gD
+
+
 const SHORT_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 const FULL_UNITS = ['bytes', 'kilobytes', 'megabytes', 'gigabytes', 'terabytes', 'petabytes'];
 

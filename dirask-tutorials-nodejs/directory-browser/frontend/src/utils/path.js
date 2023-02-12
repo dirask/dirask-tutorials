@@ -1,3 +1,8 @@
+// Source:
+//
+//     https://dirask.com/snippets/JavaScript-join-URL-path-removes-duplicated-slashes-jvJMXj
+
+
 // Joins URL paths removing duplicate slashes.
 //
 // Arguments:

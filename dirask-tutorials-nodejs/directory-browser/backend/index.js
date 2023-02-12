@@ -10,43 +10,30 @@ const {createContext} = require('./utils/frontend');
 
 // configuration
 
-const BACKEND_SERVER_PORT = 8080;  // backend server will be strted on 8080
-
 const ENV_CONSTANTS = exports.ENV_CONSTANTS = {
     __dirname: () => __dirname,
     __filename: () => __filename
 };
 
-// application
-
 initializeVariables(ENV_PATH, ENV_CONSTANTS);
+
+// application
 
 const app = express();
 
 // configuration
 
-const SHARE_PATH = process.env.SHARE_PATH ? path.normalize(process.env.SHARE_PATH) : path.resolve(__dirname, 'share');
+const SERVER_LISTENING_PORT = process.env.SERVER_LISTENING_PORT ?? 8080;
+const SHARED_DIRECTORY_PATH = process.env.SHARED_DIRECTORY_PATH ? path.normalize(process.env.SHARED_DIRECTORY_PATH) : path.resolve(__dirname, 'share');
 
-const context = createContext(app, {
-    developmentModeEnabled: JSON.parse(process.env.DEVELOPMENT_MODE_ENABLED ?? 'false'),
-    backend: {
-        frontendRoutePath: '/'  // React frontend application will be served from '/'
-                                // Nested routes will be mapped automatically also (only if there will be not defined backend route path equivalent that may override frontend route path).
-                                // e.g. http://localhost:8080/ will return React frontend
-    },
-    frontend: {
-        productionBuildPath: path.join(__dirname, '../frontend/build'),
-        productionIndexPath: path.join(__dirname, '../frontend/build/index.html'),
-        developmentServerUrl: 'http://localhost:3000/'  // URL that indicates React application under development
-    }
-});
+const context = createContext(app);
 
 context.useResources();
 
 // backend routes
 
 const DOWNLOAD_OPTIONS = {
-    root: SHARE_PATH,
+    root: SHARED_DIRECTORY_PATH,
     dotfiles: 'allow'
 };
 
@@ -60,27 +47,15 @@ tryGet(
     ],
     async (request, response) => {
         const requestPath = getWildcard(request);
-        const entryPath = path.resolve(SHARE_PATH, requestPath);
+        const entryPath = path.resolve(SHARED_DIRECTORY_PATH, requestPath);
         const entryStat = await fs.stat(entryPath);
         if (entryStat.isDirectory()) {
-            try {
-                const directoryItems = await readItems(entryPath)
-                response.json({
-                    result: true,
-                    directories: directoryItems.directories,
-                    files: directoryItems.files
-                });
-            } catch (error) {
-                if (error.code === 'ENOENT') {
-                    response.json({
-                        result: false,
-                        message:'Incorrect directory path.'
-                    });
-    
-                } else {
-                    throw error;
-                }
-            }
+            const directoryItems = await readItems(entryPath)
+            response.json({
+                result: true,
+                directories: directoryItems.directories,
+                files: directoryItems.files
+            });
             return;
         }
         if (entryStat.isFile()) {
@@ -98,7 +73,7 @@ context.mapRoutes();
 // error routes
 
 app.use((error, request, response, next) => {
-    console.error(`Method: ${request.method}, URL: ${request.protocol}://${request.hostname}:${BACKEND_SERVER_PORT}${request.path}`);
+    console.error(`Method: ${request.method}, URL: ${request.protocol}://${request.hostname}:${SERVER_LISTENING_PORT}${request.path}`);
     response
         .status(500)
         .json({
@@ -110,4 +85,4 @@ app.use((error, request, response, next) => {
 
 // running
 
-app.listen(BACKEND_SERVER_PORT, () => console.log(`Server is listening on port ${BACKEND_SERVER_PORT}.`));
+app.listen(SERVER_LISTENING_PORT, () => console.log(`Server is listening on port ${SERVER_LISTENING_PORT}.`));
