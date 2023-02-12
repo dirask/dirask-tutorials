@@ -1,0 +1,53 @@
+div.directoryPath
+{
+    padding: 6px 7px;
+    background: gold;
+}
+
+div.directoryItem
+{
+    padding: 6px 2px;
+    display: flex;
+
+    & + div.directoryItem
+    {
+        border-top: 1px solid #e6e6e6;
+    }
+
+    &:hover
+    {
+        background-color: #f5f5f5;
+    }
+
+    div.directoryType
+    {
+        padding: 0 5px;
+        flex: 1;
+        max-width: 70px;
+    }
+
+    div.directoryName
+    {
+        padding: 0 5px;
+        flex: 1;
+    }
+
+    div.directorySize
+    {
+        padding: 0 5px;
+        flex: 1;
+        max-width: 80px;
+    }
+
+    div.directoryModified
+    {
+        padding: 0 5px;
+        flex: 1;
+        max-width: 160px;
+    }
+
+    a.directoryLink
+    {
+        display: block;
+    }
+}
