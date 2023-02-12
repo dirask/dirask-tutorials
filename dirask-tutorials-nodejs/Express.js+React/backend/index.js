@@ -1,19 +1,26 @@
-const path = require('path');
 const express = require('express');
 
-const frontend = require('./utils/frontend');
+const {initializeVariables, ENV_PATH} = require('./utils/env');
+const {createContext} = require('./utils/frontend');
+
 
 // configuration
 
-const BACKEND_SERVER_PORT = 8080;  // backend server will be strted on 8080
+const ENV_CONSTANTS = exports.ENV_CONSTANTS = {
+    __dirname: () => __dirname,   // index.js directory path
+    __filename: () => __filename  // index.js file path
+};
+
+initializeVariables(ENV_PATH, ENV_CONSTANTS);
+
+const SERVER_LISTENING_PORT = process.env['backend.SERVER_LISTENING_PORT'] ?? 8080;
 
 // application
 
 const app = express();
 
-// configuration
-
-const context = frontend.createContext(app, {
+const context = createContext(app, {
+/*
     developmentModeEnabled: JSON.parse(process.env.DEVELOPMENT_MODE_ENABLED ?? 'false'),
     backend: {
         frontendRoutePath: '/'  // React frontend application will be served from '/'
@@ -25,6 +32,7 @@ const context = frontend.createContext(app, {
         productionIndexPath: path.join(__dirname, '../frontend/build/index.html'),
         developmentServerUrl: 'http://localhost:3000/'  // URL that indicates React application under development
     }
+*/
 });
 
 // ... put more express configurations here ...
@@ -46,4 +54,4 @@ context.mapRoutes();
 
 // running
 
-app.listen(BACKEND_SERVER_PORT, () => console.log(`Server is listening on port ${BACKEND_SERVER_PORT}.`));
+app.listen(SERVER_LISTENING_PORT, () => console.log(`Server is listening on port ${SERVER_LISTENING_PORT}.`));
