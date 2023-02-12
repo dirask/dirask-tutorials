@@ -13,9 +13,18 @@ const Browser = () => {
     const [items, setItems] = useState(null);
     useEffect(
         () => {
+            let destroyed = false;
             fetch('/api/directory/' + backendPath)
-                .then(response => response.json())
+                .then(response => {
+                    if (destroyed) {
+                        return;
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (destroyed) {
+                        return;
+                    }
                     if (data.result) {
                         setItems({
                             directories: data.directories,
@@ -28,9 +37,15 @@ const Browser = () => {
                     }
                 })
                 .catch(error => {
+                    if (destroyed) {
+                        return;
+                    }
                     setItems(null)
                     setError('Data fetching error!');
                 });
+            return () => {
+                destroyed = true;
+            };
         },
         [backendPath]
     );
