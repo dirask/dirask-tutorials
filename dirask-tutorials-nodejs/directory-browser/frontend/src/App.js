@@ -18,7 +18,7 @@ const App = () => {
             </Routes>
             <div className={style.appLogo}>
               <DiraskIcon className={style.appIcon} />
-              <span class={style.appText}>Online Directory Browser<br />by Dirask</span>
+              <span className={style.appText}>Online Directory Browser<br />by Dirask</span>
             </div>
           </div>
         </Router>
