@@ -1,11 +1,13 @@
 const fs = require('fs/promises');
 const path = require('path');
+
 const express = require('express');
 
 const {initializeVariables, ENV_PATH} = require('./utils/env');
 const {readItems} = require('./utils/directory');
 const {tryGet, getWildcard} = require('./utils/request');
 const {createContext} = require('./utils/frontend');
+const {createServer} = require('./utils/server');
 
 
 // configuration
@@ -23,10 +25,10 @@ const app = express();
 
 // configuration
 
-const SERVER_LISTENING_PORT = process.env.SERVER_LISTENING_PORT ?? 8080;
 const SHARED_DIRECTORY_PATH = process.env.SHARED_DIRECTORY_PATH ? path.normalize(process.env.SHARED_DIRECTORY_PATH) : path.resolve(__dirname, 'share');
 
 const context = createContext(app);
+const server = createServer(app);
 
 context.useResources();
 
@@ -36,8 +38,6 @@ const DOWNLOAD_OPTIONS = {
     root: SHARED_DIRECTORY_PATH,
     dotfiles: 'allow'
 };
-
-// Express.js - wildcard path parameter
 
 tryGet(
     app,
@@ -73,7 +73,7 @@ context.mapRoutes();
 // error routes
 
 app.use((error, request, response, next) => {
-    console.error(`Method: ${request.method}, URL: ${request.protocol}://${request.hostname}:${SERVER_LISTENING_PORT}${request.path}`);
+    console.error(`Method: ${request.method}, URL: ${request.protocol}://${request.hostname}${request.path}`);
     response
         .status(500)
         .json({
@@ -85,4 +85,4 @@ app.use((error, request, response, next) => {
 
 // running
 
-app.listen(SERVER_LISTENING_PORT, () => console.log(`Server is listening on port ${SERVER_LISTENING_PORT}.`));
+server.start((protocol, port) => console.log(`${protocol} server is listening on port ${port}.`));
