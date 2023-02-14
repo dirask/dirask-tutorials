@@ -12,3 +12,13 @@ const tryGet = exports.tryGet = (app, path, handler) => {
 		}
 	});
 };
+
+const tryPost = exports.tryPost = (app, path, handler) => {
+	return app.post(path, async (request, response, next) => {
+		try {
+			await handler(request, response);
+		} catch (error) {
+			return next(error);
+		}
+	});
+};

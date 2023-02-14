@@ -2,6 +2,8 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
+const {parseBoolean} = require('./boolean');
+
 
 /**
  * Creates HTTP/HTTPS server runner using `.env` file or `config` object.
@@ -10,35 +12,35 @@ const https = require('https');
  * @param {*} config application configuration
  *                   e.g.
  *                   {
- *                       listeningPort: 8080,
- *                       httpsEnabled: true,
- *                       keyPath: 'key.pem',
- *                       certificatePath: 'cert.pem
+ *                       serverListeningPort: 8080,
+ *                       serverHttpsEnabled: true,
+ *                       serverKeyPath: 'key.pem',
+ *                       serverCertificatePath: 'cert.pem
  *                   }
  * 
  * @returns          object that lets to manage server (e.g. server.start())
  */
 const createServer = exports.createServer = (app, config = {}) => {
-    const listeningPort = config.listeningPort ?? JSON.parse(process.env.SERVER_LISTENING_PORT ?? '8080');
-    const httpsEnabled = config.httpsEnabled ?? JSON.parse(process.env.SERVER_HTTPS_ENABLED ?? 'true');
-    if (httpsEnabled) {
-        const keyPath = config.keyPath ?? process.env.SERVER_KEY_PATH ?? 'key.pem';
-        const certificatePath = config.certificatePath ?? process.env.SERVER_CERTIFICATE_PATH ?? 'cert.pem';
+    const serverListeningPort = config.serverListeningPort ?? parseInt(process.env.SERVER_LISTENING_PORT ?? '8080');
+    const serverHttpsEnabled = config.serverHttpsEnabled ?? parseBoolean(process.env.SERVER_HTTPS_ENABLED ?? 'true');
+    if (serverHttpsEnabled) {
+        const serverKeyPath = config.serverKeyPath ?? process.env.SERVER_KEY_PATH ?? 'key.pem';
+        const serverCertificatePath = config.serverCertificatePath ?? process.env.SERVER_CERTIFICATE_PATH ?? 'cert.pem';
         const credentials = {
-            key: fs.readFileSync(keyPath, 'utf8'),
-            cert: fs.readFileSync(certificatePath, 'utf8'),
+            key: fs.readFileSync(serverKeyPath, 'utf8'),
+            cert: fs.readFileSync(serverCertificatePath, 'utf8'),
         };
-        const httpsServer = https.createServer(credentials, app);
+        const server = https.createServer(credentials, app);
         return {
             start: (callback) => {
-                httpsServer.listen(listeningPort, () => callback?.('HTTPS', listeningPort));
+                server.listen(serverListeningPort, () => callback?.('HTTPS', serverListeningPort));
             }
         };
     } else {
-        const httpServer = http.createServer(app);
+        const server = http.createServer(app);
         return {
             start: (callback) => {
-                httpServer.listen(listeningPort, () => callback?.('HTTP', listeningPort));
+                server.listen(serverListeningPort, () => callback?.('HTTP', serverListeningPort));
             }
         };
     }

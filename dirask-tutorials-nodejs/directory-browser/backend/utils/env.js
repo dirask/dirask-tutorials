@@ -18,7 +18,6 @@ const REFERENCE_EXPRESSION = /%%|%([^%*$]+)%|%|\*\*|\*([^%*$]+)\*|\*|\$\$|\$([^%
 
 const ENV_PATH = exports.ENV_PATH = '.env';
 
-
 const iterateVariables = exports.iterateVariables = (text, callback) => {
     const lines = text.split(NEWLINE_EXPRESSION);
     for (let i = 0; i < lines.length; ++i) {
@@ -87,8 +86,7 @@ const readVariables = exports.readVariables = (path = ENV_PATH, constants = {}) 
 
 const initializeVariables = exports.initializeVariables = (path = ENV_PATH, constants = null) => {
     const variables = readVariables(path, constants);
-    const keys = Object.keys(variables);
-    for (const key of keys) {
-        process.env[key] = variables[key];
+    for (const [key, value] of Object.entries(variables)) {
+        process.env[key] = value;
     }
 };
