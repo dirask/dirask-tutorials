@@ -6,6 +6,16 @@ This project was created to let user share directories and files using simple we
 
 Project contains logic that lets to run application in production and development mode.
 
+## Requirements
+
+It is required to have installed Node.js v16.
+
+Use one instruction:
+
+1. [Debian/Ubuntu](https://dirask.com/posts/1AYP91)
+2. [Windows - solution 1](http://dirask.com/posts/pVERRD)
+3. [Windows - solution 2](http://dirask.com/posts/BDnZAD)
+
 ## Installation
 
 ### Dependencies
