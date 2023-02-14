@@ -1,0 +1,19 @@
+
+div.field
+{
+    label.fieldLabel
+    {
+        margin: 10px 0 5px 0;
+        font: 15px / Arial;
+    }
+
+    input.fieldInput
+    {
+        margin: 5px 0 10px 0;
+        padding: 5px;
+        border: 1px solid #bfbfbf;
+        border-radius: 3px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+}

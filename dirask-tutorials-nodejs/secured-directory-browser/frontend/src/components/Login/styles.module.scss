@@ -1,0 +1,20 @@
+form.login
+{
+    div.loginNavigator
+    {
+        margin: 10px 0 0 0;
+
+        button.loginButton
+        {
+            padding: 7px 10px;
+            border: 1px solid #efffff;
+            border-radius: 3px;
+            background: #3085d6;
+            width: 100%;
+            font: 15px / Arial;
+            color: white;
+            display: block;
+            cursor: pointer;
+        }
+    }
+}
