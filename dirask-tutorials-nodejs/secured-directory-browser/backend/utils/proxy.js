@@ -15,7 +15,7 @@ const joinPaths = (...parts) => {
 
 const findWildcard = (expression, path) => {
     const matches = expression.exec(path);
-    if (matches.length > 0) {
+    if (matches && matches.length > 0) {
         return matches[matches.length - 1];
     }
     return null;
