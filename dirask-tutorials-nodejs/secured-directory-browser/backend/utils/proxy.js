@@ -6,7 +6,7 @@
 const path = require('path');
 const http = require('http');
 
-const createExpression = require('path-to-regexp');  // npm install path-to-regexp
+const createExpression = require('path-to-regexp');  // this package in correct version is automatically attached by Express.js to construct routes expressions
 
 
 const joinPaths = (...parts) => {
