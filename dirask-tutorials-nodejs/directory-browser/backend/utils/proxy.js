@@ -56,7 +56,7 @@ const createProxy = exports.createProxy = (expressApp, proxyPath, dstUrl, proxyA
     expressApp.all(routePath, (srcRequest, srcResponse) => {
         const srcPath = srcRequest.url;
         const srcQuery = srcRequest.query;
-        const srcWildcard = findWildcard(routeExpression, srcPath);  // finds raw wildcard parameter - not encoded what is very important!!!
+        const srcWildcard = findWildcard(routeExpression, srcPath);  // finds raw not decoded wildcard parameter
         const dstRequest = http.request({
             agent: proxyAgent,
             protocol: parsedUrl.protocol,
