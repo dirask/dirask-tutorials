@@ -1,0 +1,83 @@
+pre.cm-editor {
+    border: 1px solid #ddd;
+    font: 13.5px / 19px monospace;
+}
+
+div.cm-gutters {
+    padding: 10px 6px 10px 12px;
+    position: sticky;
+    left: 0;
+    border-right: 1px solid #ddd;
+    background: #f7f7f7;
+    min-width: 20px;
+    text-align: right;
+    color: #a1a1a1;
+    float: left;
+}
+
+code.cm-content {
+    padding: 10px 16px;
+    background: #fcfcfc;
+    tab-size: 30px;
+    color: #000000;
+    display: block;
+    float: none;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+span.cm-quote {
+    color: #090;
+}
+
+span.cm-strong {
+    font-weight: 700;
+}
+
+span.cm-strikethrough {
+    text-decoration: line-through;
+}
+
+span.cm-keyword {
+    color: #708;
+}
+
+span.cm-atom {
+    color: #219;
+}
+
+span.cm-number {
+    color: #2771bb;
+}
+
+span.cm-comment {
+    color: #708090;
+}
+
+span.cm-string {
+    color: #d03131;
+}
+
+span.cm-string2 {
+    color: #ff5500;
+}
+
+span.cm-punctuation {
+    color: #016c2c;
+}
+
+span.cm-bracket {
+    color: #997;
+}
+
+span.cm-tag {
+    color: #1156bd;
+}
+
+span.cm-attribute {
+    color: #2771bb;
+}
+
+span.cm-link {
+    color: #00c;
+}
