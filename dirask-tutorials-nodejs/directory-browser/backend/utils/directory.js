@@ -1,32 +1,35 @@
-const fs = require('fs/promises');
-
-const {readStat} = require('./node');
-
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Reads directories and files located under indicated path.
  * 
- * @param {String} path directory path
+ * @param {String} directoryPath directory path
  * 
  * @returns directories and files
  */
-exports.readItems = async (path) => {
+const readItems = exports.readItems = async (directoryPath) => {
     const directories = [];
     const files = [];
-    for (const item of await fs.readdir(path)) {
-        const stat = await readStat(path, item);
-        if (stat.isDirectory()) {
-            directories.push({
-                name: item,
-                modified: stat.mtime.toISOString()
-            });
-        }
-        if (stat.isFile()) {
-            files.push({
-                name: item,
-                size: stat.size,
-                modified: stat.mtime.toISOString()
-            });
+    for (const itemName of await fs.promises.readdir(directoryPath)) {
+        const itemPath = path.join(directoryPath, itemName);
+        if (fs.existsSync(itemPath)) {  // to prevent situation when soft link indicates to unexisting path
+            const itemStat = await fs.promises.stat(itemPath);
+            if (itemStat.isDirectory()) {
+                directories.push({
+                    name: itemName,
+                    modified: itemStat.mtime.toISOString()
+                });
+                continue;
+            }
+            if (itemStat.isFile()) {
+                files.push({
+                    name: itemName,
+                    size: itemStat.size,
+                    modified: itemStat.mtime.toISOString()
+                });
+                continue;
+            }
         }
     }
     return {directories, files};
