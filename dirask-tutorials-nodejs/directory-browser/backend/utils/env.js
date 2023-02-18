@@ -62,7 +62,7 @@ const readVariables = exports.readVariables = (path = ENV_PATH, constants = {}) 
                             {
                                 const variable = environment[group2];
                                 if (variable == null) {  // null or undefined
-                                    throw new Error(`Unknown '%${group2}%' environment variable.`);
+                                    throw new Error(`Unknown '*${group2}*' environment variable.`);
                                 }
                                 return variable;
                             }
