@@ -34,7 +34,7 @@ npm ci install
 
 When we want to run application using HTTPS server we should configure certificate and his private key.
 
-Paste certificate and his private key to the `backend/` directory or generate new one using:
+Paste certificate (`cert.pem` file) and his private key (`key.pem` file) to the `backend/` directory or generate new one using:
 
 ```
 openssl.exe req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj '/CN=localhost'
@@ -44,7 +44,9 @@ openssl.exe req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -
 
 ### Configuration
 
-In the `backend/.env` file you sould find example condifguration ready to use.
+In the `backend/.env` file you sould find example configuration ready to use.
+
+> Note: you can change there username and password needed to login to browse files and directories online.
 
 ## Production (use it to run application on your server)
 
