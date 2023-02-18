@@ -4,6 +4,8 @@ This project was created to let user share directories and files using simple we
 
 ![Online Secured Directory Browser by Dirask](screenshots/1.png "Online Secured Directory Browser by Dirask")
 
+![Online Secured Directory Browser by Dirask](screenshots/2.png "Online Secured Directory Browser by Dirask")
+
 Project contains logic that lets to run application in production and development mode.
 
 ## Requirements
